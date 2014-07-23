@@ -1,0 +1,30 @@
+#######################################
+# Syntax Coloring Map for Ucr library
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+Ucr	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin   	KEYWORD2
+sendMotorAngle	KEYWORD2
+sendIrSensor	KEYWORD2
+sendRangeSensor	KEYWORD2
+sendDeviceInfo	KEYWORD2
+update		KEYWORD2
+count		KEYWORD2
+dequeue		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+MS_DEVICE_DC			LITERAL1
+MS_DEVICE_SERVO			LITERAL1
+MS_SENSOR_ANGLE			LITERAL1
+MS_SENSOR_DISTANCE		LITERAL1
+MS_SENSOR_IR			LITERAL1
+MS_DEVICE_INFO			LITERAL1
