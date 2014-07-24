@@ -14,6 +14,7 @@
 #define MS_SENSOR_ANGLE		0x45
 #define MS_SENSOR_DISTANCE	0x93
 #define MS_SENSOR_IR		0x96
+#define MS_SENSOR_BATTERY	0xa1
 
 #define MS_DEVICE_INFO		0x0a
 
@@ -25,13 +26,11 @@ typedef enum {
   DATA,  
 } PROTOCOL_STATE;
 
-// ---- Communication
 typedef struct {
   byte cmd;
   byte id;
   word value;
 } sProtocol;
-// ---- End
 
 class Ucr {
 public:
@@ -39,9 +38,10 @@ public:
 
 	int setReportFunction(timer_callback f);
 
-	void sendMotorAngle(int id, int value);
+	void sendMotorAngle(int id, int angle);
 	void sendIrSensor(int id, int value);
-	void sendRangeSensor(int id, int value);
+	void sendRangeSensor(int id, int centimeter);
+	void sendBatteryPercent(int id, int percent);
 	void sendDeviceInfo(int id, int type);
 
 	void pushByte(byte data);

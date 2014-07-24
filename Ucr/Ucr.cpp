@@ -24,14 +24,14 @@ int Ucr::setReportFunction(timer_callback f) {
 	*callbacks = f;
 }
 
-void Ucr::sendMotorAngle(int id, int value) {
+void Ucr::sendMotorAngle(int id, int angle) {
 	byte buff[7];
 	buff[0] = 0xaa;
 	buff[1] = 0x05;
 	buff[2] = MS_SENSOR_ANGLE;
 	buff[3] = id;
-	buff[4] = (byte)(value&0x00ff);
-	buff[5] = (byte)(value>>8 & 0x00ff);
+	buff[4] = (byte)(angle&0x00ff);
+	buff[5] = (byte)(angle>>8 & 0x00ff);
 	buff[6] = _getChecksum(buff);
 	Serial.write(buff, buff[1]+2);
 }
@@ -48,17 +48,30 @@ void Ucr::sendIrSensor(int id, int value) {
 	Serial.write(buff, buff[1]+2);
 }
 
-void Ucr::sendRangeSensor(int id, int value) {
+void Ucr::sendRangeSensor(int id, int centimeter) {
 	byte buff[7];
 	buff[0] = 0xaa;
 	buff[1] = 0x05;
 	buff[2] = MS_SENSOR_DISTANCE;
 	buff[3] = id;
-	buff[4] = (byte)value;
-	buff[5] = (byte)(value>>8);
+	buff[4] = (byte)centimeter;
+	buff[5] = (byte)(centimeter>>8);
 	buff[6] = _getChecksum(buff);
 	Serial.write(buff, buff[1]+2);
 }
+
+void sendBatteryPercent(int id, int percent) {
+	byte buff[7];
+	buff[0] = 0xaa;
+	buff[1] = 0x05;
+	buff[2] = MS_SENSOR_BATTERY;
+	buff[3] = id;
+	buff[4] = (byte)percent;
+	buff[5] = (byte)(percent>>8);
+	buff[6] = _getChecksum(buff);
+	Serial.write(buff, buff[1]+2);
+}
+
 
 void Ucr::sendDeviceInfo(int id, int type) {
 	byte buff[7];
