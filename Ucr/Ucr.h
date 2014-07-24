@@ -17,6 +17,8 @@
 
 #define MS_DEVICE_INFO		0x0a
 
+typedef void (*timer_callback)(void);
+
 typedef enum {
   START,
   LENGTH,
@@ -34,6 +36,8 @@ typedef struct {
 class Ucr {
 public:
 	Ucr();
+
+	int setReportFunction(timer_callback f);
 
 	void sendMotorAngle(int id, int value);
 	void sendIrSensor(int id, int value);

@@ -10,14 +10,14 @@ Ucr	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-begin   	KEYWORD2
-sendMotorAngle	KEYWORD2
-sendIrSensor	KEYWORD2
-sendRangeSensor	KEYWORD2
-sendDeviceInfo	KEYWORD2
-update		KEYWORD2
-count		KEYWORD2
-dequeue		KEYWORD2
+setReportFunction	KEYWORD2
+sendMotorAngle		KEYWORD2
+sendIrSensor		KEYWORD2
+sendRangeSensor		KEYWORD2
+sendDeviceInfo		KEYWORD2
+update			KEYWORD2
+count			KEYWORD2
+dequeue			KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

@@ -5,10 +5,23 @@
 
 #include "Ucr.h"
 
+#define TIMER2_PRELOAD 100
+
+timer_callback *callbacks;
+
 Ucr::Ucr()
 {
 	_front = 0;
 	_rear = 0;
+
+	TCCR2A = 0;
+	TCCR2B = 1<<CS22 | 1<<CS21 | 1<<CS20;
+	TIMSK2 = 1<<TOIE2; //timer2 Overflow Interrupt
+	TCNT2 = TIMER2_PRELOAD; //start timer
+}
+
+int Ucr::setReportFunction(timer_callback f) {
+	*callbacks = f;
 }
 
 void Ucr::sendMotorAngle(int id, int value) {
@@ -145,4 +158,15 @@ byte Ucr::_getChecksum(byte *buff) {
 	for (int i = 2 ; i < buff[1]+1 ; i++)
 		checksum += buff[i];
 	return (byte) (0-checksum);
+}
+
+ISR(TIMER2_OVF_vect) //timer1 overflow interrupt vector handler
+{
+	//timer2 => 8 bits counter => 256 clock ticks
+	//preeescaler = 1024 => this routine is called 61 (16.000.000/256/1024) times per second approximately => interruption period =  1 / 16.000.000/256/1024 = 16,384 ms
+	//as we need a 20 ms interruption period but timer2 doesn't have a suitable preescaler for this, we program the timer with a 10 ms interruption period and we consider an interruption every 2 times this routine is called.
+	//to have a 10 ms interruption period, timer2 counter must overflow after 156 clock ticks => interruption period = 1 / 16.000.000/156/1024 = 9,984 ms => counter initial value (TCNT) = 100
+	TCNT2 = TIMER2_PRELOAD;  //reset timer
+	if (callbacks != 0)
+		(*callbacks)();
 }
