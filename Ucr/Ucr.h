@@ -48,9 +48,15 @@ public:
 	int count();
 	sProtocol dequeue();
 
+	void runTimer();
+
 private:
 	void _update(byte inChar);
 	byte _getChecksum(byte *buff);
+
+	unsigned long _prev_millis;
+	timer_callback *callback;
+
 
 	PROTOCOL_STATE _state;
 	byte _buff[256];
