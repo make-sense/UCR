@@ -10,11 +10,12 @@
 
 #define MS_DEVICE_DC		0x31
 #define MS_DEVICE_SERVO		0x41
+#define MS_DIGITAL_OUT		0xa1
 
 #define MS_SENSOR_ANGLE		0x45
 #define MS_SENSOR_DISTANCE	0x93
 #define MS_SENSOR_IR		0x96
-#define MS_SENSOR_BATTERY	0xa1
+#define MS_SENSOR_BATTERY	0xb1
 
 #define MS_DEVICE_INFO		0x0a
 
