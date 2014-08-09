@@ -32,7 +32,7 @@ void reportSensorToSiCi() {
 }
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(57600);
 
   pinMode(DIGITAL_OUT_1, OUTPUT);
   pinMode(DIGITAL_OUT_2, OUTPUT);

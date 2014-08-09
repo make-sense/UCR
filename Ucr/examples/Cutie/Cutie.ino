@@ -154,7 +154,7 @@ void reportSensorToSiCi() {
 }
  
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(57600);
    
   init2DC();
    
