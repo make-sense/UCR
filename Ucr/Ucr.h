@@ -16,6 +16,8 @@
 #define MS_SENSOR_DISTANCE	0x93
 #define MS_SENSOR_IR		0x96
 #define MS_SENSOR_BATTERY	0xb1
+#define MS_DIGITAL_IN		0xd1
+#define MS_ANALOG_IN		0xd2
 
 #define MS_DEVICE_INFO		0x0a
 
