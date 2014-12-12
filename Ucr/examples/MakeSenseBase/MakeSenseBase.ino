@@ -58,9 +58,6 @@ void setup() {
   pinMode(10, OUTPUT);
   pinMode(11, OUTPUT);
   pinMode(13, OUTPUT);
-//  analogWrite(5, 100);
- // analogWrite(6, 100);
-//  analogWrite(9, 100);
   digitalWrite(10, HIGH);
   digitalWrite(11, HIGH);
   digitalWrite(13, HIGH);
@@ -106,20 +103,20 @@ void loop() {
         switch(protocol.id) {
           case 5:
           {
-            (value & 0x02)? analogWrite( 5, 100): digitalWrite( 5, 0);
-            (value & 0x01)? digitalWrite(10, 100): digitalWrite(10, 0);
+            (value & 0x02)? digitalWrite( 5, HIGH): digitalWrite( 5, LOW);
+            (value & 0x01)? digitalWrite(10, HIGH): digitalWrite(10, LOW);
             break;
           }
           case 6:
           {
-            (value & 0x02)? analogWrite( 6, 100): digitalWrite( 6, 0);
-            (value & 0x01)? digitalWrite(11, 100): digitalWrite(11, 0);
+            (value & 0x02)? digitalWrite( 6, HIGH): digitalWrite( 6, LOW);
+            (value & 0x01)? digitalWrite(11, HIGH): digitalWrite(11, LOW);
             break;
           }
           case 7:
           {
-            (value & 0x02)? digitalWrite( 9, 100): digitalWrite( 9, 0);
-            (value & 0x01)? digitalWrite(13, 100): digitalWrite(13, 0);
+            (value & 0x02)? digitalWrite( 9, HIGH): digitalWrite( 9, LOW);
+            (value & 0x01)? digitalWrite(13, HIGH): digitalWrite(13, LOW);
             break;
           }
         }
