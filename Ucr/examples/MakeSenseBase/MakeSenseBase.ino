@@ -43,10 +43,10 @@ void setup() {
   Serial.begin(57600);
 
   // Servo motors
-//  servo1.attach(4);
-//  servo2.attach(7);
-//  servo3.attach(8);
-//  servo4.attach(12);
+  servo1.attach(4);
+  servo2.attach(7);
+  servo3.attach(8);
+  servo4.attach(12);
   
   // Button
   pinMode(2, INPUT);
@@ -61,9 +61,9 @@ void setup() {
 //  analogWrite(5, 100);
  // analogWrite(6, 100);
 //  analogWrite(9, 100);
- // digitalWrite(10, HIGH);
-//  digitalWrite(11, HIGH);w
- // digitalWrite(13, HIGH);
+  digitalWrite(10, HIGH);
+  digitalWrite(11, HIGH);
+  digitalWrite(13, HIGH);
 
   ucr.setReportFunction(sendToSiCi);
 }
