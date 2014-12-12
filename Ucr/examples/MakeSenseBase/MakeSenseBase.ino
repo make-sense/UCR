@@ -58,9 +58,6 @@ void setup() {
   pinMode(10, OUTPUT);
   pinMode(11, OUTPUT);
   pinMode(13, OUTPUT);
-  digitalWrite(10, HIGH);
-  digitalWrite(11, HIGH);
-  digitalWrite(13, HIGH);
 
   ucr.setReportFunction(sendToSiCi);
 }
