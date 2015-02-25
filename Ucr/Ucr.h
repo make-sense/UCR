@@ -21,6 +21,8 @@
 
 #define MS_DEVICE_INFO		0x0a
 
+#define UCR_QUEUE_SIZE		100
+
 typedef void (*timer_callback)(void);
 
 typedef enum {
@@ -62,11 +64,11 @@ private:
 
 
 	PROTOCOL_STATE _state;
-	byte _buff[256];
+	byte _buff[16];
 	byte _buff_cnt;
 	byte _buff_len;
 
-	sProtocol _protocol[256];
+	sProtocol _protocol[UCR_QUEUE_SIZE];
 	byte _front;
 	byte _rear;
 };

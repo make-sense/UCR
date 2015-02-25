@@ -88,7 +88,7 @@ void Ucr::pushByte(byte data) {
 
 int Ucr::count()
 {
-	return ((256 + _rear) - _front) % 256;
+	return ((UCR_QUEUE_SIZE + _rear) - _front) % UCR_QUEUE_SIZE;
 }
 
 sProtocol Ucr::dequeue()
