@@ -15,8 +15,6 @@ Ucr::Ucr()
 }
 
 int Ucr::setReportFunction(timer_callback f) {
-	Serial.print("SetFunction:");
-	Serial.println((int)f);
 	*callback = f;
 }
 
