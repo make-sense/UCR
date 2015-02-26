@@ -2,6 +2,8 @@
 
 Ucr4OpenCM ucr;
 
+#define DXL_ID 1
+
 #define DXL_BUS_SERIAL1 1  //Dynamixel on Serial1(USART1)  <-OpenCM9.04
 #define DXL_BUS_SERIAL2 2  //Dynamixel on Serial2(USART2)  <-LN101,BT210
 #define DXL_BUS_SERIAL3 3  //Dynamixel on Serial3(USART3)  <-OpenCM 485EXP
@@ -10,17 +12,18 @@ Dynamixel Dxl(DXL_BUS_SERIAL1);
 
 HardwareTimer Timer(1);
 
-void SetMotorAngle(byte id, byte angle) {
-  unsigned int position = angle * 1024 / 360;
+void SetMotorAngle(byte id, unsigned int angle) {
+  unsigned int position = (float)angle * 2.84f;
   Dxl.goalPosition(id, position);
 }
- 
+
 void reportToSiCi() {
+  unsigned int pos = Dxl.readWord(DXL_ID, 36);  // PRESENT_POSSITION
+  unsigned int angle = (float)pos * 0.35f;
+  sendUcr( ucr.buffMotorAngle(DXL_ID, angle) );
 }
- 
-void setup() {
-  Dxl.begin(3);
-  
+
+void initTimer () {
   // Pause the timer while we're configuring it
   Timer.pause();
 
@@ -38,10 +41,25 @@ void setup() {
   // Start the timer counting
   Timer.resume();
 }
+
+void setup() {
+  Serial2.begin(57600);
+
+  Dxl.begin(3);                  // DXL communication speed to 1M
+  Dxl.jointMode(DXL_ID);         // DXL Joint Mode
+  Dxl.writeByte(DXL_ID, 24, 1);  // DXL Torque On
+
+  initTimer ();
+}
  
 void loop() {
+  
+  if (Serial2.available ()) {
+    ucr.pushByte (Serial2.read ());
+  }
+  
   while (ucr.count() > 0) {
-    sProtocol protocol;// = ucr.dequeue();
+    sProtocol protocol = ucr.dequeue();
     switch (protocol.cmd)
     {
       case MS_DEVICE_SERVO: // DC Motor
@@ -51,25 +69,19 @@ void loop() {
       }
       case MS_DEVICE_INFO:
       {
-        // Input devices
-        UcrSend( ucr.buffDeviceInfo(1, MS_SENSOR_ANGLE) );
+        sendUcr( ucr.buffDeviceInfo(DXL_ID, MS_SENSOR_ANGLE) );
 
-        UcrSend( ucr.buffDeviceInfo(1, MS_DEVICE_SERVO) );
+        sendUcr( ucr.buffDeviceInfo(DXL_ID, MS_DEVICE_SERVO) );
         
-        UcrSend( ucr.buffDeviceInfo(0, 0) );
+        sendUcr( ucr.buffDeviceInfo(0, 0) );
         break;
       }
     }
   }
 }
 
-void UcrSend (unsigned char *buff)
+void sendUcr (unsigned char *buff)
 {
-  SerialUSB.write(buff, buff[1]+2);
+  Serial2.write(buff, buff[1]+2);
 }
 
-void serialEvent() {
-  while (SerialUSB.available()) {
-    ucr.pushByte (SerialUSB.read());
-  }
-}

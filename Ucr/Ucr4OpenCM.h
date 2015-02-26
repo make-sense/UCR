@@ -19,9 +19,7 @@
 
 #define MS_DEVICE_INFO		0x0a
 
-#define UCR_QUEUE_SIZE		10
-
- typedef void (*timer_callback)(void);
+#define UCR_QUEUE_SIZE		256
 
 typedef enum {
   START,

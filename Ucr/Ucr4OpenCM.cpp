@@ -5,8 +5,6 @@
 
 #include "Ucr4OpenCM.h"
 
-#define UPDATE_MILLS 100
-
 Ucr4OpenCM::Ucr4OpenCM()
 {
 	_front = 0;
