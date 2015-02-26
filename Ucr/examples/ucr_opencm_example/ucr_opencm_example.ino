@@ -12,15 +12,17 @@ Dynamixel Dxl(DXL_BUS_SERIAL1);
 
 HardwareTimer Timer(1);
 
-void SetMotorAngle(byte id, unsigned int angle) {
-  unsigned int position = (float)angle * 2.84f;
-  Dxl.goalPosition(id, position);
-}
-
 void reportToSiCi() {
-  unsigned int pos = Dxl.readWord(DXL_ID, 36);  // PRESENT_POSSITION
-  unsigned int angle = (float)pos * 0.35f;
-  sendUcr( ucr.buffMotorAngle(DXL_ID, angle) );
+  int pos = Dxl.readWord(DXL_ID, 36);  // PRESENT_POSSITION
+  int angle = (float)pos * 0.35f;
+  if (pos < 1024)
+  {
+    sendUcr( ucr.buffMotorAngle(DXL_ID, angle) );
+  }
+//    SerialUSB.write("position:");
+//    SerialUSB.print(pos);
+//    SerialUSB.write(", angle:");
+//    SerialUSB.println(angle);
 }
 
 void initTimer () {
@@ -44,6 +46,7 @@ void initTimer () {
 
 void setup() {
   Serial2.begin(57600);
+  Serial2.attachInterrupt(serialInterrupt);
 
   Dxl.begin(3);                  // DXL communication speed to 1M
   Dxl.jointMode(DXL_ID);         // DXL Joint Mode
@@ -53,11 +56,6 @@ void setup() {
 }
  
 void loop() {
-  
-  if (Serial2.available ()) {
-    ucr.pushByte (Serial2.read ());
-  }
-  
   while (ucr.count() > 0) {
     sProtocol protocol = ucr.dequeue();
     switch (protocol.cmd)
@@ -80,8 +78,18 @@ void loop() {
   }
 }
 
+void serialInterrupt(byte buffer){
+    ucr.pushByte (buffer);
+}
+
 void sendUcr (unsigned char *buff)
 {
   Serial2.write(buff, buff[1]+2);
 }
+
+void SetMotorAngle(byte id, unsigned int angle) {
+  unsigned int position = (float)angle * 2.84f;
+  Dxl.goalPosition(id, position);
+}
+
 
