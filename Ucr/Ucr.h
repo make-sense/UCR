@@ -21,7 +21,7 @@
 
 #define MS_DEVICE_INFO		0x0a
 
-#define UCR_QUEUE_SIZE		100
+#define UCR_QUEUE_SIZE		64
 
 typedef void (*timer_callback)(void);
 
@@ -69,8 +69,8 @@ private:
 	byte _buff_len;
 
 	sProtocol _protocol[UCR_QUEUE_SIZE];
-	byte _front;
-	byte _rear;
+	int _front;
+	int _rear;
 };
 
 #endif

@@ -86,7 +86,7 @@ void Ucr::pushByte(byte data) {
 
 int Ucr::count()
 {
-	return ((UCR_QUEUE_SIZE + _rear) - _front) % UCR_QUEUE_SIZE;
+	return ((_rear + UCR_QUEUE_SIZE) - _front) % UCR_QUEUE_SIZE;
 }
 
 sProtocol Ucr::dequeue()
@@ -154,8 +154,8 @@ void Ucr::_update(byte inChar) {
 						_protocol[_rear].value = _protocol[_rear].value<<8;
 						_protocol[_rear].value += _buff[2];
 					}
+					_rear++;
 				}
-				_rear++;
 				_state = START;
 			}
 			break;
