@@ -21,7 +21,7 @@
 
 #define MS_DEVICE_INFO		0x0a
 
-#define UCR_QUEUE_SIZE		64
+#define UCR_QUEUE_SIZE		256
 
 typedef void (*timer_callback)(void);
 
