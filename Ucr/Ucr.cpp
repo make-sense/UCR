@@ -95,6 +95,8 @@ sProtocol Ucr::dequeue()
 		sProtocol protocol;
 		protocol = _protocol[_front];
 		_front++;
+		if (_front < UCR_QUEUE_SIZE)
+			_front = 0;
 		return protocol;
 	}
 }
@@ -155,6 +157,8 @@ void Ucr::_update(byte inChar) {
 						_protocol[_rear].value += _buff[2];
 					}
 					_rear++;
+					if (_rear > UCR_QUEUE_SIZE)
+						_rear = 0;
 				}
 				_state = START;
 			}

@@ -8,6 +8,12 @@
 
 #include "Arduino.h"
 
+#define MS_RESET			0x01
+#define MS_COMPANY_ID		0x02
+#define MS_PRODUCT_ID		0x03
+#define MS_VERSION_MAJOR	0x04
+#define MS_VERSION_MINOR	0x05
+
 #define MS_DEVICE_DC		0x31
 #define MS_DEVICE_SERVO		0x41
 #define MS_DIGITAL_OUT		0xa1
@@ -21,7 +27,7 @@
 
 #define MS_DEVICE_INFO		0x0a
 
-#define UCR_QUEUE_SIZE		256
+#define UCR_QUEUE_SIZE		64
 
 typedef void (*timer_callback)(void);
 
