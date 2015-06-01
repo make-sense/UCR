@@ -125,9 +125,16 @@ void Ucr::_update(byte inChar) {
 
 		case LENGTH :
 		{
-			_buff_len = inChar;
-			_buff_cnt = 0;
-			_state = DATA;
+			if (inChar < 0xAA)
+			{
+				_buff_len = inChar;
+				_buff_cnt = 0;
+				_state = DATA;
+			}
+			else if (inChar > 0xAA)
+			{
+				_state = START;
+			}
 			break;
 		}
 
