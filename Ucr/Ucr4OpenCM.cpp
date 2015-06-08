@@ -81,7 +81,7 @@ sProtocol Ucr4OpenCM::dequeue()
 		sProtocol protocol;
 		protocol = _protocol[_front];
 		_front++;
-		if (_front > UCR_QUEUE_SIZE)
+		if (_front >= UCR_QUEUE_SIZE)
 			_front = 0;
 		return _protocol[_front-1];
 	}
@@ -140,7 +140,7 @@ void Ucr4OpenCM::_update(unsigned char inChar) {
 					}
 				}
 				_rear++;
-				if (_rear > UCR_QUEUE_SIZE)
+				if (_rear >= UCR_QUEUE_SIZE)
 					_rear = 0;
 				_state = START;
 			}
