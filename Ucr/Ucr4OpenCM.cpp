@@ -22,6 +22,17 @@ unsigned char *Ucr4OpenCM::buffMotorAngle(int id, int angle) {
 	return _send_buff;
 }
 
+unsigned char *Ucr4OpenCM::buffTouchSensor(int id, int value) {
+	_send_buff[0] = 0xaa;
+	_send_buff[1] = 0x05;
+	_send_buff[2] = MS_SENSOR_TOUCH;
+	_send_buff[3] = id;
+	_send_buff[4] = (unsigned char)value;
+	_send_buff[5] = (unsigned char)(value>>8);
+	_send_buff[6] = _getChecksum(_send_buff);
+	return _send_buff;
+}
+
 unsigned char *Ucr4OpenCM::buffIrSensor(int id, int value) {
 	_send_buff[0] = 0xaa;
 	_send_buff[1] = 0x05;

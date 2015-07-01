@@ -16,9 +16,11 @@
 
 #define MS_DEVICE_DC		0x31
 #define MS_DEVICE_SERVO		0x41
+#define MS_DEVICE_SERVO_SET	0x42
 #define MS_DIGITAL_OUT		0xa1
 
 #define MS_SENSOR_ANGLE		0x45
+#define MS_SENSOR_TOUCH		0x91
 #define MS_SENSOR_DISTANCE	0x93
 #define MS_SENSOR_IR		0x96
 #define MS_SENSOR_BATTERY	0xb1
@@ -50,6 +52,7 @@ public:
 	int setReportFunction(timer_callback f);
 
 	void sendMotorAngle(int id, int angle);
+	void sendTouchSensor(int id, int value);
 	void sendIrSensor(int id, int value);
 	void sendRangeSensor(int id, int centimeter);
 	void sendBatteryPercent(int id, int percent);

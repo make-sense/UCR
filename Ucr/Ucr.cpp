@@ -30,6 +30,18 @@ void Ucr::sendMotorAngle(int id, int angle) {
 	Serial.write(buff, buff[1]+2);
 }
 
+void Ucr::sendTouchSensor(int id, int value) {
+	byte buff[7];
+	buff[0] = 0xaa;
+	buff[1] = 0x05;
+	buff[2] = MS_SENSOR_TOUCH;
+	buff[3] = id;
+	buff[4] = (byte)value;
+	buff[5] = (byte)(value>>8);
+	buff[6] = _getChecksum(buff);
+	Serial.write(buff, buff[1]+2);
+}
+
 void Ucr::sendIrSensor(int id, int value) {
 	byte buff[7];
 	buff[0] = 0xaa;
