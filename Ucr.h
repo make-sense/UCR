@@ -57,6 +57,7 @@ public:
 	void sendRangeSensor(int id, int centimeter);
 	void sendBatteryPercent(int id, int percent);
 	void sendDeviceInfo(int id, int type);
+	void sendCustomPacket (int cmd, int id, int value);
 
 	void pushByte(byte data);
 	int count();

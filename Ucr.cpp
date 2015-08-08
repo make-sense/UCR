@@ -91,6 +91,17 @@ void Ucr::sendDeviceInfo(int id, int type) {
 	Serial.write(buff, buff[1]+2);
 }
 
+void Ucr::sendCustomPacket (int cmd, int id, int value) {
+	byte buff[7];
+	buff[0] = 0xaa;
+	buff[1] = 0x05;
+	buff[2] = cmd;
+	buff[3] = id;
+	buff[4] = (byte)value;
+	buff[5] = (byte)(value>>8);
+	buff[6] = _getChecksum(buff);
+	Serial.write(buff, buff[1]+2);
+}
 
 void Ucr::pushByte(byte data) {
 	_update(data);
