@@ -68,9 +68,9 @@ void loop() {
     sProtocol protocol = ucr.dequeue();
     switch (protocol.cmd)
     {
-      case MS_DEVICE_DC:  // DC Motor
+      case MS_DEVICE_SERVO:  // Servo Motor
       {
-        int velocity = (int)protocol.value;
+        int angle = (int)protocol.value;
         switch (protocol.id) {
           case 1:
             servo1.write(velocity);
@@ -78,13 +78,6 @@ void loop() {
           case 2:
             servo2.write(velocity);
             break;
-        }
-        break;
-      }
-      case MS_DEVICE_SERVO:  // Servo Motor
-      {
-        int angle = (int)protocol.value;
-        switch (protocol.id) {
           case 3:
             servo3.write(angle);
             break;
