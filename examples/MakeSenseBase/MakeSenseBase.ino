@@ -73,10 +73,10 @@ void loop() {
         int angle = (int)protocol.value;
         switch (protocol.id) {
           case 1:
-            servo1.write(velocity);
+            servo1.write(angle);
             break;
           case 2:
-            servo2.write(velocity);
+            servo2.write(angle);
             break;
           case 3:
             servo3.write(angle);
